@@ -58,8 +58,10 @@ export class HttpFunction extends pulumi.ComponentResource {
         super("azure:HttpFunction", name, {}, options);
 
         let parentArgs = { parent: this };
+        
+        const projectName = pulumi.getProject();
 
-        let config = new pulumi.Config("birthday-countdown");
+        let config = new pulumi.Config(projectName);
         let location = config.require("location");
 
         this.resourceGroup = new azure.core.ResourceGroup(`${name}-rg`, {
